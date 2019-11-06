@@ -15,5 +15,5 @@
     echo"inserido com sucesso";
 
     //Redireciona p/ pagina mostrar.php
-    header("Location: index.html");
+    header("Location: index.php");
 ?>

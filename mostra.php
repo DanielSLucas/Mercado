@@ -38,6 +38,10 @@
 
     echo "</table>";
 
+    // SUBMIT
+    echo "<div class='col-md-4'>";
+        echo "<button id='singlebutton' name='singlebutton' class='btn btn-default'><a href='index.php'>home</a></button>";
+    echo "</div>";
 
 
 

@@ -7,3 +7,8 @@ table, thead, td, tr {
 thead td {
     font-weight: bold;
 }
+
+td a {
+    color: black;
+    font-weight: bold;
+}
