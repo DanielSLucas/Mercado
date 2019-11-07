@@ -1,65 +1,17 @@
-<?php  include "topo.php"; ?>
+<?php  include "./componentes/head.php"; ?>
 <body>
     
-    <center>
-        <form action="cadastro.php" method="POST">
+    <header>
+        <?php include "./componentes/nav.php"; ?>
+    </header>
 
-            <fieldset>
-
-                <!-- Form Name -->
-                <legend>Cadastro produto:</legend>
-                        
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="textinput"></label>  
-                    <div class="col-md-6">
-                        <input id="textinput" name="nomeProduto" type="text" placeholder="Digite seu nome" class="form-control input-md">
-                            
-                    </div>
-
-                    <label class="col-md-4 control-label" for="textinput"></label>  
-                    
-                    <div class="col-md-6">
-                        <input id="textinput" name="preco" type="text" placeholder="Preço do produto" class="form-control input-md">          
-                    </div>
-
-                    <label class="col-md-4 control-label" for="textinput"></label>  
-                        
-                    <div class="col-md-6">
-                        <input id="textinput" name="validade" type="date" placeholder="Validade do produto" class="form-control input-md">          
-                    </div>
-
-                    <label class="col-md-4 control-label" for="textinput"></label>  
-                        
-                    <div class="col-md-6">
-                        <input id="textinput" name="estoque" type="text" placeholder="Quantidade em estoque" class="form-control input-md">          
-                    </div>
-
-                    <label class="col-md-4 control-label" for="textinput"></label>  
-                        
-                    <div class="col-md-6">
-                        <input id="textinput" name="min" type="text" placeholder="Quantidade min em estoque" class="form-control input-md">          
-                    </div>
-
-                    <br/>
-
-                    <!-- <div class="col-md-4">
-                        <button  type="submit" id="singlebutton" name="singlebutton" class="btn btn-default">Cadastrar</button>
-                    </div> -->
-
-                    <div class="col-md-8">
-                        <button  type="submit" id="singlebutton" name="singlebutton" class="btn btn-default">Cadastrar</button>
-                        <button id="button2id" name="button2id" class="btn btn-success"><a href="mostra.php">Produtos</a></button>
-                        <button id="button2id" name="button2id" class="btn btn-success"><a href="vendas.php">Vender</a></button>
-                    </div>
-                </div>
-
-            </fieldset>
-
-
-            <!-- <input type="submit"> -->
-        </form>
-    </center>
+    <main class= "container">
+        <div class="row">
+            <div class="col-lg-10">
+                <?php  include "./componentes/formCadastro.php";?>
+            </div>
+        </div>
+    </main>
 
 
     <!-- JS from bootstrap -->

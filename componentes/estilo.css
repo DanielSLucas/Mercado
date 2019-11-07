@@ -1,0 +1,45 @@
+body {
+    margin:0;
+    background-color: gainsboro;
+}
+
+legend {
+    margin-left: 10%;
+    text-decoration: underline;
+}
+
+/* table, thead, td, tr {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 10px;
+} */
+
+/* thead td {
+    font-weight: bold;
+} */
+
+td a {
+    font-weight: bold;
+}
+
+.nav {
+    margin-bottom: 40px;
+}
+
+form button {
+    width: 122px;
+    background-color: darkgrey;
+}
+
+#homeButton {
+    width: 77px;
+    background-color: darkgrey;
+}
+
+#homeButton a {
+    color: black;
+}
+
+.branco {
+    background-color: whitesmoke;
+}
