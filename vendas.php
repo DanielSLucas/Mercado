@@ -5,107 +5,135 @@
         <?php include "./componentes/nav.php"; ?>
     </header>
 
-    <?php 
-        include 'conexao.php';
+    <div class="container">    
+        <div class="row">
+            <div class="col-6">
+                <form action="vendas.php?tab=3" method="POST">
 
-        //CRIA UMA VENDA NA TABELA VENDA
-        $sql = "insert into tb_vendas (valor_total, data_vend) values (0, NOW())";
-        mysqli_query($link, $sql);
+                    <fieldset>
 
-        // BUSCA A ULTIMA LINHA DA TABELA "TB_VENDAS"
-        $lastLine = "select * from tb_vendas order by id_venda desc";
-        $linha = mysqli_query($link, $lastLine);
-
-        //CRIAÇÃO DE UMA ARRAY COM A LINHA
-        $venda = mysqli_fetch_array($linha);
-
-        //TRAZ O ID DA VENDA 
-        $venda['id_venda'];
-    ?>
-<div class="container">    
-<div class="row">
-    <div class="col-8">
-        <form action="cadastro.php" method="POST">
-
-            <fieldset>
-
-                <!-- Form Name -->
-                <legend>Venda</legend>
-                        
-                <div class="form-group">
-                    <!-- SELECT-->
-                    
-                <label class="col-md-4 control-label" for="selectbasic"></label>
-                <div class="col-md-4">
-                    <select id="listaProdutos" name="selectProdutos" class="form-control">
-                        <?php 
-                               
-                            echo "<link rel='stylesheet' href='./estilo.css'>";
-                            $sql = "select * from tb_produtos";
-                               
-                            $tabela = mysqli_query($link, $sql);
-                        
-                            $cont = 1;
-
-                            while ($produto = mysqli_fetch_array($tabela)) {
+                        <!-- Form Name -->
+                        <legend>Venda</legend>
                                 
-                                echo "<option value='$cont'>".$produto[1]."</option>";
+                        <div class="form-group">
+                            <!-- SELECT-->
+                            
+                            <label class="col-md-4 control-label" for="selectbasic">Produto:</label>
+                            <div class="col-md-8">
+                                <select id="listaProdutos" name="selectProdutos" class="form-control">
+                                    <?php 
+                                        include 'conexao.php';
 
-                                $cont++;
-                            }
-                        ?>
-                        
-                    </select> 
-                </div>
+                                        echo "<link rel='stylesheet' href='./estilo.css'>";
+                                        $selectProd = "select * from tb_produtos";
+                                        
+                                        $tabelProd = mysqli_query($link, $selectProd);
 
-                    <label class="col-md-4 control-label" for="textinput"></label>  
+                                        while ($produto = mysqli_fetch_array($tabelProd)) {
+                                            
+                                            echo "<option value='$produto[0]'>".$produto[1]."</option>";
+                
+                                        }
+                                    ?>
+                                    
+                                </select> 
+                            </div>
+                            
+                            <br/>
+                            <!-- Quantidade de produtos -->                             
+                            <div class="col-md-8">
+                                <label class="control-label" for="textinput">Quantidade:</label> 
+                                <input id="textinput" name="qtd" type="number" value='1' class="form-control input-md">          
+                            </div>
+
+                            <br/>
+
+                            <!-- BOTÃO CADASTRAR  -->
+                            <div class="col-md-4" >
+                                <button  type="submit" id="singlebutton" name="singlebutton" class="btn btn-default">Cadastrar</button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+
+                    <!-- <input type="submit"> -->
+                </form>
+            </div>
+
+            <div class="col-6">
+                <?php
+
+                    include 'conexao.php';
                     
-                    <div class="col-md-6">
-                        <input id="textinput" name="preco" type="text" placeholder="Preço do produto" class="form-control input-md">          
-                    </div>
+                    $idProduto  = "";
+                    $qtd        = "";
+                    $valTotal   = 0;
 
-                    <label class="col-md-4 control-label" for="textinput"></label>  
+                    if (isset($_POST['selectProdutos']) && isset($_POST['qtd'])) {
+                        $idProduto  = $_POST['selectProdutos'];
+                        $qtd        = $_POST['qtd'];
+
+                        //BUSCA O PRODUTO E SUAS INFO
+                        $sqlProduto = "select * from tb_produtos where id_produto = $idProduto";
+                        $tabProduto = mysqli_query($link, $sqlProduto);
+                        $linhaProduto = mysqli_fetch_array($tabProduto);
+                    
+
+                        // BUSCA A ULTIMA LINHA DA TABELA "TB_VENDAS"
+                        $lastLine       = "select * from tb_vendas order by id_venda desc";
+                        $tabVenda       = mysqli_query($link, $lastLine);
+                        $linhaVenda     = mysqli_fetch_array($tabVenda);
+
+                        //INSERÇÃO DE PRODUTO NA TABELA "tb_itens_vendidos"
+                        $inserirItem = "insert into tb_itens_vendidos (valor_p, qtd, fk_produto, fk_venda) values ($linhaProduto[2], $qtd, $idProduto, $linhaVenda[0]) ";
+                        $tabVendidos = mysqli_query($link, $inserirItem);
                         
-                    <div class="col-md-6">
-                        <input id="textinput" name="validade" type="date" placeholder="Validade do produto" class="form-control input-md">          
-                    </div>
-
-                    <label class="col-md-4 control-label" for="textinput"></label>  
+                        //SELECT NA tb_itens_vendidos
+                        $sql = "select * from tb_itens_vendidos where fk_venda = $linhaVenda[0] ";
+                        $tabela = mysqli_query($link, $sql);
                         
-                    <div class="col-md-6">
-                        <input id="textinput" name="estoque" type="text" placeholder="Quantidade em estoque" class="form-control input-md">          
-                    </div>
+                        echo "<table class='table table-dark'>";
 
-                    <label class="col-md-4 control-label" for="textinput"></label>  
+                            echo "<thead>";
+                                echo "<td scope='col'>Produto:</td>";
+                                echo "<td scope='col'>Quantidade</td>";
+                                echo "<td scope='col'>Preço:</td>";
+                                echo "<td scope='col'>Total:</td>";
+                            echo "</thead>";
+
+                        //Lopping para montar tabela
+                        while ($linha = mysqli_fetch_array($tabela)) {
                         
-                    <div class="col-md-6">
-                        <input id="textinput" name="min" type="text" placeholder="Quantidade min em estoque" class="form-control input-md">          
-                    </div>
+                            //BUSCA O PRODUTO E SUAS INFO
+                            $sqlProduto = "select * from tb_produtos where id_produto = $linha[3]";
+                            $tabProduto = mysqli_query($link, $sqlProduto);
+                            $linhaProduto = mysqli_fetch_array($tabProduto);
 
-                    <br/>
+                            echo "<tr>";
+                                echo "<td>".$linhaProduto[1]."</td>"; //Produto
+                                echo "<td>".$linha[2]."</td>"; //QUANTIDADE
+                                echo "<td>".$linha[1]."</td>"; //PREÇO
+                                echo "<td>".$linha[1] * $linha[2]."</td>"; //PREÇO TOTAL
+                            echo "</tr>";
 
-                    <!-- <div class="col-md-4">
-                        <button  type="submit" id="singlebutton" name="singlebutton" class="btn btn-default">Cadastrar</button>
-                    </div> -->
+                            $valTotal = $valTotal + $linha[1] * $linha[2];
+                        }
+                            echo "<tr>";
+                                echo "<td>Total:</td>"; 
+                                echo "<td></td>"; 
+                                echo "<td></td>"; 
+                                echo "<td>".$valTotal."</td>"; 
+                            echo "</tr>";
+                        echo "</table>";
 
-                    <div class="col-md-8">
-                        <button  type="submit" id="singlebutton" name="singlebutton" class="btn btn-default">Cadastrar</button>
-                        <button id="button2id" name="button2id" class="btn btn-success"><a href="mostra.php">Produtos</a></button>
-                    </div>
-                </div>
-
-            </fieldset>
-
-
-            <!-- <input type="submit"> -->
-        </form>
+                        $attVenda = "update tb_vendas set valor_total='$valTotal' where id_venda= $linhaVenda[0]";
+                        $queryAtt = mysqli_query($link, $attVenda);
+                    }
+                ?>
+            </div>
+        </div>
     </div>
-
-    <div class="col-4">
-        sdaçfksaçdfklj
-    </div>
-</div>
-</div>
 
 
     <!-- JS from bootstrap -->

@@ -3,11 +3,16 @@
     
     echo "<link rel='stylesheet' href='./componentes/estilo.css'>";
 
+    $tab = $_GET['tab'];
     $index      = "";
     $produtos   = "";
     $venda      = "";
 
-    switch ($tab = $_GET['tab']) {
+    if (isset($tab)) {
+        $tab = $_GET['tab'];
+    }
+
+    switch ($tab) {
         case 1:
             $index = "active";
             break;
@@ -21,7 +26,9 @@
             break;
         
         default:
-            $index = "active";
+            $index      = "";
+            $produtos   = "";
+            $venda      = "";
     }
     
 
@@ -31,7 +38,7 @@
     echo "<ul class='nav nav-tabs justify-content-end'>";
     
         echo "<li class='nav-item'>";
-            echo "<a class='nav-link $index' href='index.php?tab=1'>Castro de produto</a>";
+            echo "<a class='nav-link $index' href='index.php?tab=1'>Cadastro de produto</a>";
         echo "</li>";
 
         echo "<li class='nav-item'>";
@@ -39,7 +46,7 @@
         echo "</li>";
 
         echo "<li class='nav-item'>";
-            echo "<a class='nav-link $venda' href='vendas.php?tab=3'>Venda</a>";
+            echo "<a class='nav-link $venda' href='novavenda.php?tab=3'>Venda</a>";
         echo "</li>";
 
         echo "<li class='nav-item'>";

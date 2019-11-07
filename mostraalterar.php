@@ -4,7 +4,7 @@
 <?php 
     include 'conexao.php';
     echo "<link rel='stylesheet' href='./estilo.css'>";
-
+    include "./componentes/nav.php";
     $idProd = $_GET['id'];
 
     //Comando sql + armazenar em array o resultado
