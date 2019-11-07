@@ -3,12 +3,12 @@
     
     echo "<link rel='stylesheet' href='./componentes/estilo.css'>";
 
-    $tab = $_GET['tab'];
+    $tab = 1;
     $index      = "";
     $produtos   = "";
     $venda      = "";
 
-    if (isset($tab)) {
+    if (isset($_GET['tab'])) {
         $tab = $_GET['tab'];
     }
 
