@@ -15,7 +15,7 @@
         <!-- NOME -->
         <label class="col-md-4 control-label" for="textinput"></label>  
         <div class="col-md-6">
-            <input id="textinput" name="nomeProduto" type="text" placeholder="Digite seu nome" class="form-control input-md">
+            <input id="textinput" name="nomeProduto" type="text" placeholder="Digite o nome produto" class="form-control input-md">
                 
         </div>
 

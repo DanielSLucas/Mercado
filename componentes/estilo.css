@@ -43,3 +43,24 @@ form button {
 .branco {
     background-color: whitesmoke;
 }
+
+.text {
+    color: black;
+    font-size: 23px;
+    font-weight: 600;
+}
+
+.lupa {
+    background: darkgray;
+    border-radius: 5px;
+    height: 100%;
+    width: 125%;
+}
+
+.lupa:hover {
+    background: darkgray;
+    border-radius: 5px;
+    height: 99%;
+    width: 124%;
+    box-shadow: 1px 1px 5px black;
+}

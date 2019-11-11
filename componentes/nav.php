@@ -7,6 +7,7 @@
     $index      = "";
     $produtos   = "";
     $venda      = "";
+    $relatorios = "";
 
     if (isset($_GET['tab'])) {
         $tab = $_GET['tab'];
@@ -25,6 +26,10 @@
             $venda = "active";
             break;
         
+        case 4:
+            $relatorios = "active";
+            break;
+            
         default:
             $index      = "";
             $produtos   = "";
@@ -50,7 +55,7 @@
         echo "</li>";
 
         echo "<li class='nav-item'>";
-            echo "<a class='nav-link disabled' href='#' tabindex='-1' aria-disabled='true'>Disabled</a>";
+            echo "<a class='nav-link $relatorios' href='relatorios.php?tab=4'>Relatórios</a>";
         echo "</li>";
 
     echo "</ul>";

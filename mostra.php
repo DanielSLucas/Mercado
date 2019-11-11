@@ -40,11 +40,6 @@
         }
 
         echo "</table>";
-
-        // SUBMIT
-        echo "<div class='col-md-1 float-right'>";
-            echo "<button id='homeButton' name='singlebutton' class='btn btn-default'><a href='index.php?tab=1'>home</a></button>";
-        echo "</div>";
     echo "</div>";
 
 
