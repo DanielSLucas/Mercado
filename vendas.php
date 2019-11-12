@@ -50,7 +50,7 @@
 
                             <!-- BOTÃO CADASTRAR  -->
                             <div class="col-md-4" >
-                                <button  type="submit" id="singlebutton" name="singlebutton" class="btn btn-default">Cadastrar</button>
+                                <button  type="submit" id="singlebutton" name="singlebutton" class="btn btn-default">Add Produto</button>
                             </div>
                         </div>
 
@@ -78,7 +78,14 @@
                         $sqlProduto = "select * from tb_produtos where id_produto = $idProduto";
                         $tabProduto = mysqli_query($link, $sqlProduto);
                         $linhaProduto = mysqli_fetch_array($tabProduto);
+
+                        //ATUALIZA A QUANTIDADE DO PRODUTO EM ESTOQUE
+                        $updateEstoque = "update tb_produtos set qtd_em_estoque=$linhaProduto[4]-$qtd where id_produto = $idProduto";
+                        mysqli_query($link, $updateEstoque);
                     
+                        if ($linhaProduto[4] < $linhaProduto[5]) {
+                            echo "<script language=javascript>alert( 'Baixa quantidade em estoque. Repor estoque!!' );</script>";
+                        }
 
                         // BUSCA A ULTIMA LINHA DA TABELA "TB_VENDAS"
                         $lastLine       = "select * from tb_vendas order by id_venda desc";

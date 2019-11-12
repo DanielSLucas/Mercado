@@ -68,3 +68,9 @@ form button {
 .relat {
     margin-top: 50px;
 }
+
+.vendaBox {
+    border-bottom: 3px solid darkgray;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}

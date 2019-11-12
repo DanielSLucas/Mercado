@@ -38,21 +38,21 @@
     echo "<link rel='stylesheet' href='./componentes/estilo.css'>";
 
 
-    $sql        = "select * from tb_vendas";
+    $sql        = "select * from tb_vendas order by id_venda desc";
     $tbVenda    = mysqli_query($link, $sql);
 
     echo "<div class='container relat'>";
 
         if (isset($tbVenda)){
             while ($linha = mysqli_fetch_array($tbVenda)) {
-                echo "<div class='row'>";
+                echo "<div class='row vendaBox'>";
                     echo "<div class='col-2'>";
                     
-                        echo "<table class='table table-dark'>";
+                        echo "<table class='table table-sm table-dark'>";
             
                             echo "<thead>";
-                                echo "<td>ID:</td>";
-                                echo "<td>Valor Total:</td>";
+                                echo "<th>ID:</th>";
+                                echo "<th>Valor Total:</th>";
                             echo "</thead>";
             
                             
@@ -70,11 +70,11 @@
                         $sql2       = "select * from tb_itens_vendidos where fk_venda=$linha[0]";
                         $tbVendidos = mysqli_query($link, $sql2);
                         
-                        echo "<table class='table table-dark'>";
+                        echo "<table class='table'>";
 
-                            echo "<thead>";
-                                echo "<td>Produto:</td>";
-                                echo "<td>Valor:</td>";
+                            echo "<thead class='thead-dark'>";
+                                echo "<th>Produto:</th>";
+                                echo "<th>Valor:</th>";
                             echo "</thead>";
 
 
@@ -84,8 +84,8 @@
                                 $produto = mysqli_fetch_array($tbProdutos);
 
                                 echo "<tr>";
-                                    echo "<td>".$produto[1]."</td>";
-                                    echo "<td>".$produto[2]."</td>";
+                                    echo "<td class='table-light'>".$produto[1]."</td>";
+                                    echo "<td class='table-light'>".$produto[2]."</td>";
                                 echo "</tr>";
                             }
 

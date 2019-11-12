@@ -51,7 +51,7 @@
         echo "</li>";
 
         echo "<li class='nav-item'>";
-            echo "<a class='nav-link $venda' href='novavenda.php?tab=3'>Venda</a>";
+            echo "<a class='nav-link $venda' href='novavenda.php?tab=3'>Iniciar venda</a>";
         echo "</li>";
 
         echo "<li class='nav-item'>";
